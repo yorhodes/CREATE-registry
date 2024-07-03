@@ -23,14 +23,14 @@ Get relevant transaction fields
 cast tx 0x3da029916b4f040bfe0670f0df716a770bc20f4cdabc20f144bd526d5010fc54 --json | jq '.from,.nonce'
 ```
 
-Left pad nonce to uint64
+Left pad nonce to even length
 ```shell
-cast to-uint64 "0x6a9"
+"0x6a9" => "0x06a9"
 ```
 
 RLP encode from and nonce
 ```shell
-cast to-rlp '["0xa7eccdb9be08178f896c26b7bbd8c3d4e844d9ba","0x00000000000000000000000000000000000000000000000000000000000006a9"]'
+cast to-rlp '["0xa7eccdb9be08178f896c26b7bbd8c3d4e844d9ba","0x06a9"]'
 ```
 
 ### Build
