@@ -10,17 +10,14 @@ contract CreateRegistry {
 
     /**
      * @dev CREATE opcode https://www.evm.codes/#f0
-     * @param deployed The address of the deployed contract
      * @param createRlpBytes rlp([sender_address,sender_nonce])
      */
-    function verify(address deployed, bytes calldata createRlpBytes) external {
-        require(deployed.codehash != bytes32(0x0), "no bytecode at deployed");
-
+    function verify(bytes calldata createRlpBytes) external {
         address derived = address(uint160(uint256(keccak256(createRlpBytes))));
-        require(derived == deployed, "derived address does not match deployed");
+        require(derived.codehash != bytes32(0x0), "no bytecode at derived");
 
         RLPReader.RLPItem[] memory items = createRlpBytes.toRlpItem().toList();
         address sender = items[0].toAddress();
-        deployers[deployed] = sender;
+        deployers[derived] = sender;
     }
 }
