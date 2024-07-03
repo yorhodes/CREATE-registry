@@ -1,19 +1,37 @@
-## Foundry
+## CREATE Registry
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+This repository contains the smart contract source code for the CREATE Registry. 
 
-Foundry consists of:
+This registry provides a trustless mapping from deployed contract addresses to their respective deployer addresses. 
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
-
-## Documentation
-
-https://book.getfoundry.sh/
+This is useful for granting funds or permissions to developers based on the contracts they have deployed.
 
 ## Usage
+
+Get the CREATE transaction hash
+```shell
+curl https://api.etherscan.io/api\
+?module\=contract\
+&action\=getcontractcreation\
+&contractaddresses\=0xc005dc82818d67AF737725bD4bf75435d065D239\
+&apikey\=YourApiKeyToken \
+| jq '.result[0].txHash'
+```
+
+Get relevant transaction fields
+```shell
+cast tx 0x3da029916b4f040bfe0670f0df716a770bc20f4cdabc20f144bd526d5010fc54 --json | jq '.from,.nonce'
+```
+
+Left pad nonce to uint64
+```shell
+cast to-uint64 "0x6a9"
+```
+
+RLP encode from and nonce
+```shell
+cast to-rlp '["0xa7eccdb9be08178f896c26b7bbd8c3d4e844d9ba","0x00000000000000000000000000000000000000000000000000000000000006a9"]'
+```
 
 ### Build
 
@@ -25,42 +43,4 @@ $ forge build
 
 ```shell
 $ forge test
-```
-
-### Format
-
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
 ```
