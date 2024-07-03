@@ -13,7 +13,7 @@ contract CreateRegistryTest is Test {
     }
 
     function test_verify_hyperlane() public {
-        // $ cast to-rlp '["0xa7eccdb9be08178f896c26b7bbd8c3d4e844d9ba","0x00000000000006a9"]'
+        // $ cast to-rlp '["0xa7eccdb9be08178f896c26b7bbd8c3d4e844d9ba","0x06a9"]'
         bytes memory rlp = hex"d894a7eccdb9be08178f896c26b7bbd8c3d4e844d9ba8206a9";
         registry.verify(rlp);
         assert(registry.deployers(0xc005dc82818d67AF737725bD4bf75435d065D239) == 0xa7ECcdb9Be08178f896c26b7BbD8C3D4E844d9Ba);
