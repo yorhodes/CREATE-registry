@@ -1,3 +1,6 @@
+> [!TIP]
+> I have just discovered [Dragonfly's proof of CREATE](https://github.com/dragonfly-xyz/useful-solidity-patterns/blob/1a51d77377d50a25a947448395ca215e8f6813c2/patterns/factory-proofs/FactoryProofs.sol#L7) which provides a simpler interface.
+
 ## CREATE Registry
 
 This repository contains the smart contract source code for the CREATE Registry. 
